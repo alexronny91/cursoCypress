@@ -1,0 +1,75 @@
+Ambiente Cypress
+
+1. Node JS
+2. VS Code
+3. Cypress
+
+npm init -y 
+    iniciar configurações modo padrão do projeto
+^8.7.0
+npm install cypress@9.7.0
+    intalação do cypress
+
+Para conseguir rodar o cypress -> abrir o arquivo package.json
+    Adicionar em "scripts" {}
+        "cypress:open": "cypress open"
+npm run cypress:open
+
+Para o VS Code reconhecer o cypress adicionar na primeira linha
+    /// <reference types="cypress" />
+
+it('Nome do teste', () => {execução do teste})
+
+describe('Nome do agrupamento dos testes', () => {
+    it('Nome do primeiro teste do agrupamento', () => {execução})
+    it('Nome do segundo teste do agrupamento', () => {execução})
+    ...
+    /// Pode ter outros describe(agrupamentos internos)
+})
+
+it.skip --> pular o teste
+describe.skip --> pular agrupamento de testes
+
+cy.get() --> busca pela tag html ou pelo css do elemento
+cy.debug() --> mais informações sobre o elemento
+cy.pause() --> debugar passo a passo
+cy.contains --> busca por texto
+
+.type('Escrever texto', { delay:100 }) -->> Pode utilizar o delay para consultar eventos javascript conforme escreve
+
+Alterar Timeout padrão
+    Acessar o arquivo "cypress.json"
+{
+    "defaultCommandTimeout": 1000
+}
+
+Alterar Timeout em um step
+    Utilizar como segundo parametro do cy.get()
+cy.get('#novoCampo', { timeout: 1000 })
+
+.should 
+--> fica executando a verificação pelas retentaticas retrys
+--> não executa novas buscas(cy.get) de elementos dentro do bloco (Loop infinito)
+--> retorna apenas o elemento que recebeu
+vs 
+.then 
+--> aguarda a conclusão para executar a verificação
+--> executa novas buscas dentro do bloco
+--> permite return
+
+Ordem de prioridade para busca de elementos
+    Adicionar em support >> index.js com a ordem desejada *Lembre-se de adicionar todas as opções
+    É possivel adiconar um novo seletor personalizado basta adicionar a lista abaixo
+Cypress.SelectorPlayground.defaults({
+  selectorPriority: ['novoSeletor', 'id', 'class', 'attributes', 'data-cy', 'data-test', 'data-testid', 'tag', 'attributes', 'nth-child'],
+})
+
+Rodar em modo headless
+    npx cypress run
+
+Alex R T R
+artr@barriga
+123456
+
+
+
